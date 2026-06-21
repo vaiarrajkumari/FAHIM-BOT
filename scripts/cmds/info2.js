@@ -1,117 +1,108 @@
-const moment = require("moment-timezone");
+const fs = require("fs-extra");
+const axios = require("axios");
+const path = require("path");
 
 module.exports = {
   config: {
-    name: "info",
-    version: "2.5.3",
-    author: "MR_FARHAN",
+    name: "info2",
+    version: "1.5.0",
+    author: "FARHAN",
     role: 0,
-    countDown: 20,
-    shortDescription: {
-      en: "Owner & bot information"
-    },
-    longDescription: {
-      en: "Show detailed information about the bot, owner, uptime and socials"
-    },
-    category: "owner",
-    guide: {
-      en: "{pn}"
-    }
+    shortDescription: "Owner information with dynamic Facebook profile picture",
+    category: "Information",
+    guide: { en: "info" }
   },
 
-  onStart: async function ({ message }) {
+  onStart: async function ({ api, event }) {
+    // --- Owner Info Text ---
+    const ownerText = `╔════•|      ✿      |•════╗
+💐আ্ঁস্ঁসা্ঁলা্ঁমু্ঁ💚আ্ঁলা্ঁই্ঁকু্ঁম্ঁ💐
+╚════•|      ✿      |•════╝
+__________________________________
+🌺❀ 𝐁𝐎𝐓_ 𝐈𝐍𝐅𝐎_𝐑𝐌𝐀𝐓𝐈𝐎𝐍 ❀🌺
+__________________________________
 
-    // OWNER INFO
-    const ownerName = "FARHAN-KHAN";
-    const ownerAge = "20+";
-    const ownerFB = "https://m.me/MR.MUNNA.220";
-    const ownerNumber = "01934640061";
-    const status = "Active";
+💠𝐁𝐎𝐓 𝐍𝐀𝐌𝐄💠 :
 
-    // BOT INFO
-    const botName = global.GoatBot?.config?.nickNameBot || "GoatBot";
-    const prefix = global.GoatBot?.config?.prefix || ".";
-    const totalCommands = global.GoatBot?.commands?.size || 0;
+─꯭𓆩»̶̶͓͓͓̽̽̽𝆠꯭፝֟𝗙𝗔𝗛𝗜𝗠𝆠꯭፝֟𓆩𝆠፝𝐁𝐀𝐁𝐘𝆠꯭፝֟𝆠꯭፝֟𓆪🐱🩵🪽
 
-    // GIF / VIDEO URL
-    const images = [
-      "https://files.catbox.moe/aqns0l.mp4"
-    ];
-    const image = images[Math.floor(Math.random() * images.length)];
+🌼𝐁𝐎𝐓 𝐀𝐃𝐌𝐈𝐍🌼:『𝗙𝗠-𝗙𝗔𝗛𝗜𝗠』
 
-    // DATE & TIME
-    const now = moment().tz("Asia/Dhaka");
-    const date = now.format("MMMM Do YYYY");
-    const time = now.format("h:mm:ss A");
+🔥𝐁𝐈𝐎 𝐀𝐃𝐌𝐈𝐍🔥 : [ ⊱༅༎😽💚༅༎⊱
 
-    // UPTIME
-    const uptime = process.uptime();
-    const days = Math.floor(uptime / 86400);
-    const hours = Math.floor((uptime % 86400) / 3600);
-    const minutes = Math.floor((uptime % 3600) / 60);
-    const seconds = Math.floor(uptime % 60);
-    const uptimeString = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-    // SEND MESSAGE
-    return message.reply({
-      body: `⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
-‎    ╭•┄┅══❁🌺❁══┅┄•╮
- •—»✨𝗢𝗪𝗡𝗘𝗥 𝗜𝗡𝗙𝗢✨«—•
-‎    ╰•┄┅══❁🌺❁══┅┄•╯
-‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
-‎╔══════════════════╗
-‎║👤>𝗢𝗪𝗡𝗘𝗥:-[𝗙𝗔𝗛𝗜𝗠-𝗞𝗛𝗔𝗡]
-║
-‎║♻️>𝗥𝗲𝗹𝗶𝗴𝗶𝗼𝗻:- [>𝗜𝘀𝗹𝗮𝗺<]
-‎║ 
-‎║📝>𝗔𝗴𝗲:-  [>18+<]
-‎║
-‎║🚻>𝗚𝗲𝗻𝗱𝗲𝗿:-  [>𝗠𝗮𝗹𝗲<]
-‎‎╠══════════════════╣
-‎║🌐>𝗙𝗮𝗰𝗲𝗯𝗼𝗼𝗸:-↓
-‎║→𝙵𝙱.𝙲𝙾𝙼/𝙵𝙰𝙷𝙼.𝙰𝙷𝙼𝙴𝙳.𝚁𝙰𝙹.207                        
-‎║
-‎║💬>𝗠𝗲𝘀𝘀𝗲𝗻𝗴𝗲𝗿:-↓
-‎║𝙷𝚃𝙿𝙿𝚂://𝙼.𝙼𝙴/𝙵𝙰𝙷𝙸𝙼.𝙰𝙷𝙼𝙴𝙳.𝚁𝙰𝙹.207
-‎║
-‎║📞>𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽:-↓
-‎║→[>𝚆𝙰.𝙼𝙴/+8801771240377<]        
-‎║
-‎╠══════════════════╣
-‎║>𝗕𝗢𝗧-𝗡𝗔𝗠𝗘:-𝗙𝗔𝗛𝗜𝗠-𝗕𝗔𝗕𝗬<
-‎║
-‎║⚡>𝗣𝗿𝗲𝗳𝗶𝘅:-『 ${prefix} 』
-‎║
-‎║📦>𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀:-『 𝟮𝟮𝟱 』
-‎║
-‎║🚀>𝗣𝗶𝗻𝗴:- N/A
-‎╠══════════════════╣
-‎║
-‎║⏳>𝗨𝗽𝘁𝗶𝗺𝗲:- ${uptimeString}
-‎║
-‎║🕒>𝗕𝗱→𝗧𝗶𝗺𝗲:-『 ${time} 』
-‎║
-║🗓>𝗗𝗮𝘁𝗲:-『 ${date} 』
-║
-‎╠══════════════════╣
-‎║🏠>𝐀𝐃𝐃𝐑𝐄𝐒𝐒:-[𝗦𝗜𝗥𝗔𝗝𝗚𝗢𝗡𝗚]
-‎║             [𝐁𝐀𝐍𝐆𝐋𝐀𝐃𝐄𝐒𝐇]
-‎║
-‎║👩‍❤️‍👨↓
-║ >𝐑𝐄𝐋𝐀𝐓𝐈𝐎𝐍𝐒𝐇𝐈𝐏:-[>𝐒𝐈𝐍𝐆𝐋𝐄<]
-‎║
-‎║🧑‍🔧>𝐖𝐎𝐑𝐊:- [>𝗕𝗔𝗞𝗘𝗥<]
-‎╠══════════════════╣
-‎⊱༅༎😽💚༅༎⊱ ]
-‎-আমি ভদ্র, বেয়াদব দুটোই🥱✌️
-‎
-‎-তুমি যেটা ডি'জার্ভ করো, আমি সেটাই দেখাবো! 
+-আমি ভদ্র, বেয়াদব দুটোই🥱✌️
+
+-তুমি যেটা ডি'জার্ভ করো, আমি সেটাই দেখাবো!🙂
+
+
 ⊱༅༎😽💚༅༎⊱ ]
-‎╠══════════════════╣
-  ‎♡𝗧𝗛𝗔𝗡𝗞𝗦 𝗙𝗢𝗥 𝗨𝗦𝗜𝗡𝗚 𝗠𝗬♡
-             ♡𝗙𝗔𝗛𝗜𝗠>𝗕𝗢𝗧♡
-‎╚══════════════════╝`,
-      attachment: await global.utils.getStreamFromURL(image)
-    });
+
+🏠𝐀𝐃𝐃𝐑𝐄𝐒𝐒🏠 :[𝗦𝗜𝗥𝗔𝗝𝗚𝗢𝗡𝗚]
+              [𝐁𝐀𝐍𝐆𝐋𝐀𝐃𝐄𝐒𝐇] 
+
+🌺𝐑𝐄𝐋𝐈𝐆𝐈𝐎𝐍🌺 :[𝐈𝐒𝐋𝐀𝐌]
+
+💮𝐆𝐄𝐍𝐃𝐄𝐑💮  :[𝐌𝐀𝐋𝐄]
+
+🌸𝐑𝐄𝐋𝐀𝐓𝐈𝐎𝐍𝐒𝐇𝐈𝐏🌸 :[𝐒𝐈𝐍𝐆𝐋𝐄]
+
+🌼𝐖𝐎𝐑𝐊🌼 :[𝗕𝗔𝗞𝗘𝗥]
+
+🌷𝐖𝐇𝐀𝐓'𝐒 𝐀𝐏𝐏🌷:[01771240377]
+
+_________🅲🅾🅽🆃🅰🅲🆃_________
+
+💥𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 𝐈𝐃 (❶)💥 : https://m.me/fahim.ahmed.raj.207
+
+💥𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 𝐈𝐃 (❷)💥 : https://www.facebook.com/fahim.ahmed.207
+______________________________
+☄️>𝐁𝐎𝐓 𝐏𝐑𝐄𝐅𝐈𝐗 :-  { - } 
+
+👑>𝐎𝐖𝐍𝐄𝐑 :-(𝐌𝐑.𝐅𝐀𝗛𝗜𝗠)
+______________________________
+
+𝐓𝐘𝐏𝐄 /𝐀𝐃𝐌𝐈𝐍:-♻️➟𝐔𝐏𝐓𝐈𝐌𝐄 ♻️
+
+『💚 𝐓𝐇𝐀𝐍𝐊𝐒 𝐅𝐎𝐑 𝐔𝐒𝐈𝐍𝐆 💚』
+-------------+++++++++++++-------------`;
+
+    const cacheDir = path.join(__dirname, "cache");
+    const fbUserID = "100002237017720"; // Change to your Facebook user ID
+    const imgPath = path.join(cacheDir, `${fbUserID}.png`);
+
+    try {
+      await fs.ensureDir(cacheDir);
+
+      // Remove old file if exists
+      if (await fs.pathExists(imgPath)) {
+        await fs.remove(imgPath);
+      }
+
+      // Download Facebook profile picture dynamically
+      const fbURL = `https://graph.facebook.com/${fbUserID}/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+      const response = await axios({ method: "GET", url: fbURL, responseType: "stream" });
+
+      const writer = fs.createWriteStream(imgPath);
+      response.data.pipe(writer);
+
+      // Wait until image is fully written
+      await new Promise((resolve, reject) => {
+        writer.on("finish", resolve);
+        writer.on("error", reject);
+      });
+
+      // Send message with image attachment
+      api.sendMessage(
+        { body: ownerText, attachment: fs.createReadStream(imgPath) },
+        event.threadID,
+        () => fs.remove(imgPath), // Cleanup after sending
+        event.messageID
+      );
+
+    } catch (err) {
+      console.error("❌ Error sending owner info:", err);
+      api.sendMessage(ownerText, event.threadID, event.messageID); // fallback: send text only
+    }
   }
 };
