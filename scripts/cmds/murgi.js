@@ -21,7 +21,7 @@ module.exports = {
     if (args[0] && args[0].toLowerCase() === "off") {
       if (activeMurgi.has(event.threadID)) {
         activeMurgi.set(event.threadID, false);
-        return message.reply("🛑 ওকে বস মাগীর পোলা কে আর চুদবো না..");
+        return message.reply("🛑 ওকে 𝗙𝗔𝗛𝗜𝗠 বস মাগীর পোলা কে আর চুদবো না..");
       } else {
         return message.reply("⚠️ Murgi mode is not running.");
       }
@@ -29,7 +29,7 @@ module.exports = {
 
     const mention = Object.keys(event.mentions)[0];
     if (!mention) {
-      return message.reply("বস যে মাগির পোলা কে চুদ্দে চাউ তার আইডি @ম্যানশন দেউ,🖕");
+      return message.reply("বস 𝗙𝗔𝗛𝗜𝗠 যে মাগির পোলা কে চুদ্দে চাউ তার আইডি @ম্যানশন দেউ,🖕");
     }
 
     // 🔥 REAL NAME FETCH (FIXED)
@@ -88,7 +88,7 @@ module.exports = {
     ];
 
     activeMurgi.set(event.threadID, true);
-    message.reply("বস 𓆩𝐑𝐉 𝐅𝐀𝐑𝐇𝐀𝐍𓆪 এর চুদা লো-🖕🥵");
+    message.reply("বস 𓆩𝐅𝗔𝗛𝗜𝗠𓆪 এর চুদা লো-🖕🥵");
 
     try {
       while (activeMurgi.get(event.threadID)) {
